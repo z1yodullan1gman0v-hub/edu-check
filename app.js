@@ -1,9 +1,12 @@
-const STORAGE_KEY = "edu_check_v5_data";
+const MAIN_DIRECTOR_TG_ID = 8914149525;
+const STORAGE_KEY = "edu_check_v7_data";
 
 const I18N = {
   ru: {
     pageTitle: "edu-check — Школьная система",
     subtitle: "Электронный журнал и календарь уроков",
+    fullscreenBtn: "На весь экран",
+    exitFullscreenBtn: "Обычный экран",
     styleBtn: "Стиль сайта",
     editName: "Изменить имя",
     createBtn: "+ Создать",
@@ -17,10 +20,13 @@ const I18N = {
     navJournal: "Журнал оценок",
     defaultDirectorName: "Директор школы",
     defaultDirectorSubject: "Администрация",
+    guestViewerName: "Гость / Родитель",
+    guestViewerSubject: "Режим просмотра",
     roleLabel: "Роль",
     roleDirector: "Директор",
     roleHomeroom: "Классный руководитель",
     roleTeacher: "Учитель",
+    roleGuest: "Просмотр",
     days: ["Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"],
     daysShort: ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб"],
     months: ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"],
@@ -33,9 +39,10 @@ const I18N = {
     statStudents: "Ученики",
     statParents: "Родители",
     quickStartText: "Создавайте классы, добавляйте руководителей, учителей, учеников и родителей с номером телефона (по желанию). Нажимайте на дни недели в календаре, чтобы назначать уроки.",
-    noClasses: "Классов пока нет. Нажмите «+ Создать», чтобы начать с нуля.",
+    guestStartText: "Вы вошли в режиме просмотра. Создание классов, редактирование расписания и управление персоналом доступны только директору школы.",
+    noClasses: "Классов пока нет.",
     noStudents: "В этом классе пока нет учеников.",
-    noParents: "Родителей пока нет. Нажмите «+ Создать» и откройте вкладку «4. Родитель».",
+    noParents: "Родителей пока нет.",
     classLabel: "Класс",
     classNameInput: "Название класса (например, 8-А)",
     roomLabel: "Кабинет",
@@ -54,6 +61,7 @@ const I18N = {
     noStudentBound: "Без привязки",
     lessonNum: "Урок",
     clickToAssign: "Нажмите, чтобы назначить",
+    emptySlotText: "Нет урока",
     gradesCol: "Оценки (0–10)",
     attendanceCol: "Посещаемость",
     actionCol: "Действие",
@@ -85,11 +93,14 @@ const I18N = {
     gradeRange: "Оценка (от 0 до 10)",
     noteOptional: "Комментарий (необязательно)",
     savedToast: "Сохранено",
+    noAccessToast: "Доступно только директору",
     resetConfirm: "Удалить все классы, учителей, родителей, уроки и оценки и начать заново?"
   },
   en: {
     pageTitle: "edu-check — School System",
     subtitle: "Digital gradebook and lesson calendar",
+    fullscreenBtn: "Full screen",
+    exitFullscreenBtn: "Exit full screen",
     styleBtn: "Site style",
     editName: "Edit name",
     createBtn: "+ Create",
@@ -103,10 +114,13 @@ const I18N = {
     navJournal: "Gradebook",
     defaultDirectorName: "School Director",
     defaultDirectorSubject: "Administration",
+    guestViewerName: "Guest / Parent",
+    guestViewerSubject: "View-only mode",
     roleLabel: "Role",
     roleDirector: "Director",
     roleHomeroom: "Homeroom Teacher",
     roleTeacher: "Teacher",
+    roleGuest: "Viewer",
     days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
     daysShort: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
     months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
@@ -119,9 +133,10 @@ const I18N = {
     statStudents: "Students",
     statParents: "Parents",
     quickStartText: "Create classes, add leaders, teachers, students, and parents with optional phone numbers. Click any weekday in the calendar to assign lessons.",
-    noClasses: "No classes yet. Click '+ Create' to start from scratch.",
+    guestStartText: "You are in view-only mode. Creating classes, editing schedules, and managing staff are restricted to the School Director.",
+    noClasses: "No classes yet.",
     noStudents: "No students in this class yet.",
-    noParents: "No parents yet. Click '+ Create' and open '4. Parent'.",
+    noParents: "No parents yet.",
     classLabel: "Class",
     classNameInput: "Class name (e.g., 8-A)",
     roomLabel: "Room",
@@ -140,6 +155,7 @@ const I18N = {
     noStudentBound: "Not linked",
     lessonNum: "Lesson",
     clickToAssign: "Click to assign",
+    emptySlotText: "No lesson",
     gradesCol: "Grades (0–10)",
     attendanceCol: "Attendance",
     actionCol: "Action",
@@ -171,11 +187,14 @@ const I18N = {
     gradeRange: "Grade (0 to 10)",
     noteOptional: "Note (optional)",
     savedToast: "Saved",
+    noAccessToast: "Director access only",
     resetConfirm: "Delete all classes, teachers, parents, lessons, and grades to start fresh?"
   },
   uz: {
     pageTitle: "edu-check — Maktab tizimi",
     subtitle: "Elektron jurnal va darslar taqvimi",
+    fullscreenBtn: "Toʻliq ekran",
+    exitFullscreenBtn: "Oddiy ekran",
     styleBtn: "Sayt uslubi",
     editName: "Ismni oʻzgartirish",
     createBtn: "+ Yaratish",
@@ -189,10 +208,13 @@ const I18N = {
     navJournal: "Baholar jurnali",
     defaultDirectorName: "Maktab direktori",
     defaultDirectorSubject: "Maʼmuriyat",
+    guestViewerName: "Mehmon / Ota-ona",
+    guestViewerSubject: "Koʻrish rejimi",
     roleLabel: "Lavozim",
     roleDirector: "Direktor",
     roleHomeroom: "Sinf rahbari",
     roleTeacher: "Oʻqituvchi",
+    roleGuest: "Koʻrish",
     days: ["Dushanba", "Seshanba", "Chorshanba", "Payshanba", "Juma", "Shanba"],
     daysShort: ["Du", "Se", "Ch", "Pa", "Ju", "Sh"],
     months: ["Yanvar", "Fevral", "Mart", "Aprel", "May", "Iyun", "Iyul", "Avgust", "Sentabr", "Oktabr", "Noyabr", "Dekabr"],
@@ -205,9 +227,10 @@ const I18N = {
     statStudents: "Oʻquvchilar",
     statParents: "Ota-onalar",
     quickStartText: "Sinflar yarating, rahbarlar, oʻqituvchilar, oʻquvchilar va ota-onalarni (telefon raqami ixtiyoriy) qoʻshing. Dars belgilash uchun taqvimdagi hafta kunini bosing.",
-    noClasses: "Hozircha sinflar yoʻq. Noldan boshlash uchun «+ Yaratish» tugmasini bosing.",
+    guestStartText: "Siz koʻrish rejimidasiz. Sinflar yaratish, dars jadvalini oʻzgartirish va xodimlarni boshqarish faqat direktor uchun ochiq.",
+    noClasses: "Hozircha sinflar yoʻq.",
     noStudents: "Bu sinfda hozircha oʻquvchilar yoʻq.",
-    noParents: "Hozircha ota-onalar yoʻq. «+ Yaratish» tugmasini bosib «4. Ota-ona» boʻlimini oching.",
+    noParents: "Hozircha ota-onalar yoʻq.",
     classLabel: "Sinf",
     classNameInput: "Sinf nomi (masalan, 8-A)",
     roomLabel: "Xona",
@@ -226,6 +249,7 @@ const I18N = {
     noStudentBound: "Biriktirilmagan",
     lessonNum: "Dars",
     clickToAssign: "Belgilash uchun bosing",
+    emptySlotText: "Dars yoʻq",
     gradesCol: "Baholar (0–10)",
     attendanceCol: "Davomat",
     actionCol: "Amal",
@@ -257,6 +281,7 @@ const I18N = {
     gradeRange: "Baho (0 dan 10 gacha)",
     noteOptional: "Izoh (ixtiyoriy)",
     savedToast: "Saqlandi",
+    noAccessToast: "Faqat direktor uchun",
     resetConfirm: "Barcha sinflar, oʻqituvchilar, ota-onalar, darslar va baholarni oʻchirib noldan boshlaysizmi?"
   }
 };
@@ -268,11 +293,37 @@ const THEMES = [
   { id: "dark", nameKey: "themeDarkName", descKey: "themeDarkDesc", colors: ["#181c1a", "#212624", "#52947c"] }
 ];
 
+function detectTelegramUser() {
+  try {
+    const tg = window.Telegram?.WebApp;
+    if (tg) {
+      tg.ready();
+      tg.expand();
+      const isMobile = ["android", "android_x", "ios"].includes(tg.platform);
+      document.body.classList.add(isMobile ? "is-mobile" : "is-desktop");
+      if (isMobile && typeof tg.requestFullscreen === "function") {
+        tg.requestFullscreen();
+      }
+      if (tg.initDataUnsafe?.user) {
+        return tg.initDataUnsafe.user;
+      }
+    }
+  } catch {}
+  return null;
+}
+
+const TG_USER = detectTelegramUser();
+
+function isOwnerDirector() {
+  if (!TG_USER) return true;
+  return Number(TG_USER.id) === Number(MAIN_DIRECTOR_TG_ID);
+}
+
 function getInitialState() {
   return {
     lang: "ru",
     theme: "sage",
-    activeUserId: "dir_1",
+    activeUserId: isOwnerDirector() ? "dir_1" : "guest_1",
     activeTab: "home",
     selectedClassId: null,
     selectedDayIndex: 0,
@@ -303,8 +354,13 @@ let state = loadState();
 function loadState() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return getInitialState();
-    return { ...getInitialState(), ...JSON.parse(raw) };
+    const base = getInitialState();
+    if (!raw) return base;
+    const merged = { ...base, ...JSON.parse(raw) };
+    if (!isOwnerDirector() && merged.activeUserId === "dir_1") {
+      merged.activeUserId = "guest_1";
+    }
+    return merged;
   } catch {
     return getInitialState();
   }
@@ -328,14 +384,48 @@ function escapeHtml(str) {
 
 function getStaffDisplayName(staffObj) {
   if (!staffObj) return "—";
+  if (staffObj.id === "guest_1") {
+    if (TG_USER?.first_name) {
+      return `${TG_USER.first_name}${TG_USER.last_name ? " " + TG_USER.last_name : ""}`;
+    }
+    return t("guestViewerName");
+  }
   if (staffObj.isDefaultDirector && !staffObj.name) return t("defaultDirectorName");
   return staffObj.name;
 }
 
 function getStaffDisplaySubject(staffObj) {
   if (!staffObj) return "";
+  if (staffObj.id === "guest_1") return t("guestViewerSubject");
   if (staffObj.isDefaultDirector && !staffObj.subject) return t("defaultDirectorSubject");
   return staffObj.subject || "";
+}
+
+function getActiveUser() {
+  if (!isOwnerDirector()) {
+    const foundStaff = state.staff.find((s) => s.id === state.activeUserId && s.role !== "director");
+    if (foundStaff) return foundStaff;
+    return {
+      id: "guest_1",
+      name: "",
+      role: "guest",
+      subject: "",
+      room: ""
+    };
+  }
+  return state.staff.find((s) => s.id === state.activeUserId) || state.staff[0];
+}
+
+function canAdminister() {
+  const u = getActiveUser();
+  return isOwnerDirector() && u.role === "director";
+}
+
+function canGrade() {
+  const u = getActiveUser();
+  if (u.role === "guest") return false;
+  if (u.role === "director") return isOwnerDirector();
+  return u.role === "teacher" || u.role === "homeroom";
 }
 
 function getGradeClass(val) {
@@ -353,11 +443,6 @@ function showToast(msg) {
   window.__toastTimer = setTimeout(() => el.classList.remove("show"), 2200);
 }
 
-function getActiveUser() {
-  return state.staff.find((s) => s.id === state.activeUserId) || state.staff[0];
-}
-
-// ===== Кастомный выпадающий список (замена дефолтному select) =====
 function renderCustomSelect(container, options, selectedValue, onSelect, placeholder = "—") {
   if (!container) return;
   const selectedObj = options.find((o) => String(o.value) === String(selectedValue));
@@ -406,7 +491,6 @@ function closeAllCustomSelects() {
 
 document.addEventListener("click", closeAllCustomSelects);
 
-// ===== Даты недели для кастомного календаря =====
 function getWeekDates(weekOffset = 0) {
   const now = new Date();
   const day = now.getDay();
@@ -435,10 +519,17 @@ function applyTranslations() {
   document.title = t("pageTitle");
 
   document.getElementById("t-subtitle").textContent = t("subtitle");
+  const isFs = Boolean(document.fullscreenElement || window.Telegram?.WebApp?.isFullscreen);
+  document.getElementById("fullscreenBtn").textContent = isFs ? t("exitFullscreenBtn") : t("fullscreenBtn");
   document.getElementById("openThemeBtn").textContent = t("styleBtn");
   document.getElementById("editNameBtn").textContent = t("editName");
   document.getElementById("openCreateBtn").textContent = t("createBtn");
   document.getElementById("resetAllBtn").textContent = t("resetBtn");
+
+  const isAdmin = canAdminister();
+  document.getElementById("openCreateBtn").style.display = isAdmin ? "" : "none";
+  document.getElementById("resetAllBtn").style.display = isAdmin ? "" : "none";
+  document.getElementById("editNameBtn").style.display = isAdmin ? "" : "none";
 
   document.getElementById("nav-home").textContent = t("navHome");
   document.getElementById("nav-classes").textContent = t("navClasses");
@@ -446,6 +537,8 @@ function applyTranslations() {
   document.getElementById("nav-parents").textContent = t("navParents");
   document.getElementById("nav-timetable").textContent = t("navTimetable");
   document.getElementById("nav-journal").textContent = t("navJournal");
+
+  document.getElementById("nav-parents").style.display = isAdmin ? "" : "none";
 
   ["closeCreateBtn", "closeThemeBtn", "closeEditBtn", "closeLessonBtn", "closeGradeBtn"].forEach((id) => {
     document.getElementById(id).textContent = t("closeBtn");
@@ -490,14 +583,27 @@ function renderTopbarUserDropdown() {
   const roleMap = {
     director: t("roleDirector"),
     homeroom: t("roleHomeroom"),
-    teacher: t("roleTeacher")
+    teacher: t("roleTeacher"),
+    guest: t("roleGuest")
   };
-  const options = state.staff.map((s) => ({
+
+  let visibleProfiles = [];
+  if (isOwnerDirector()) {
+    visibleProfiles = state.staff;
+  } else {
+    const guestProfile = { id: "guest_1", role: "guest" };
+    const nonDirectors = state.staff.filter((s) => s.role !== "director");
+    visibleProfiles = [guestProfile, ...nonDirectors];
+  }
+
+  const options = visibleProfiles.map((s) => ({
     value: s.id,
     label: getStaffDisplayName(s),
     sub: roleMap[s.role] || s.role
   }));
-  renderCustomSelect(document.getElementById("userDropdown"), options, state.activeUserId, (val) => {
+
+  const currentUser = getActiveUser();
+  renderCustomSelect(document.getElementById("userDropdown"), options, currentUser.id, (val) => {
     state.activeUserId = val;
     saveState();
     renderApp();
@@ -507,6 +613,10 @@ function renderTopbarUserDropdown() {
 function renderApp() {
   applyTranslations();
   renderTopbarUserDropdown();
+
+  if (!canAdminister() && state.activeTab === "parents") {
+    state.activeTab = "home";
+  }
 
   document.querySelectorAll(".nav-btn").forEach((btn) => {
     btn.classList.toggle("active", btn.dataset.tab === state.activeTab);
@@ -524,7 +634,6 @@ function renderApp() {
   else if (state.activeTab === "timetable") root.innerHTML = renderTimetableTab();
   else if (state.activeTab === "journal") root.innerHTML = renderJournalTab();
 
-  // Инициализация кастомных селектов внутри активной вкладки
   const classDropdown = document.getElementById("pageClassDropdown");
   if (classDropdown && state.classes.length > 0) {
     const clsOptions = state.classes.map((c) => ({
@@ -547,6 +656,8 @@ function renderApp() {
 function renderHomeTab() {
   const user = getActiveUser();
   const displaySubject = getStaffDisplaySubject(user);
+  const isAdmin = canAdminister();
+
   return `
     <div class="grid-3" style="margin-bottom: 18px;">
       <div class="card">
@@ -575,21 +686,29 @@ function renderHomeTab() {
         </div>
         <div class="btn-row">
           <button type="button" class="btn btn-secondary" onclick="openThemeModal()">${t("styleBtn")}</button>
-          <button type="button" class="btn btn-secondary" onclick="openEditNameModal()">${t("editName")}</button>
-          <button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>
+          ${
+            isAdmin
+              ? `
+                <button type="button" class="btn btn-secondary" onclick="openEditNameModal()">${t("editName")}</button>
+                <button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>
+              `
+              : ""
+          }
         </div>
       </div>
-      <p class="muted">${t("quickStartText")}</p>
+      <p class="muted">${isAdmin ? t("quickStartText") : t("guestStartText")}</p>
     </div>
   `;
 }
 
 function renderClassesTab() {
+  const isAdmin = canAdminister();
+
   if (state.classes.length === 0) {
     return `
       <div class="empty-state">
         <p>${t("noClasses")}</p>
-        <button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>
+        ${isAdmin ? `<button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>` : ""}
       </div>
     `;
   }
@@ -607,7 +726,7 @@ function renderClassesTab() {
                   <div class="card-title">${t("classLabel")} ${escapeHtml(cls.name)}</div>
                   <div class="muted">${t("homeroomLabel")}: ${leader ? escapeHtml(getStaffDisplayName(leader)) : "—"} · ${t("roomLabel")}: ${escapeHtml(cls.room || "—")}</div>
                 </div>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="openCreateModal('student', '${cls.id}')">${t("addStudentShort")}</button>
+                ${isAdmin ? `<button type="button" class="btn btn-secondary btn-sm" onclick="openCreateModal('student', '${cls.id}')">${t("addStudentShort")}</button>` : ""}
               </div>
               ${
                 clsStudents.length === 0
@@ -618,7 +737,7 @@ function renderClassesTab() {
                           (st, idx) =>
                             `<li class="student-item">
                               <span><strong>${idx + 1}. ${escapeHtml(st.name)}</strong> ${st.phone ? `<span class="muted">· ${escapeHtml(st.phone)}</span>` : ""}</span>
-                              <span class="muted">/link ${st.code}</span>
+                              ${isAdmin ? `<span class="muted">/link ${st.code}</span>` : ""}
                             </li>`
                         )
                         .join("")}
@@ -633,6 +752,7 @@ function renderClassesTab() {
 }
 
 function renderStaffTab() {
+  const isAdmin = canAdminister();
   const roleMap = {
     director: t("roleDirector"),
     homeroom: t("roleHomeroom"),
@@ -643,7 +763,7 @@ function renderStaffTab() {
     <div class="card">
       <div class="card-header">
         <div class="card-title">${t("navStaff")}</div>
-        <button type="button" class="btn btn-primary btn-sm" onclick="openCreateModal('staff')">${t("createBtn")}</button>
+        ${isAdmin ? `<button type="button" class="btn btn-primary btn-sm" onclick="openCreateModal('staff')">${t("createBtn")}</button>` : ""}
       </div>
       <div class="table-wrap">
         <table>
@@ -678,6 +798,7 @@ function renderStaffTab() {
 }
 
 function renderParentsTab() {
+  if (!canAdminister()) return "";
   if (state.parents.length === 0) {
     return `
       <div class="empty-state">
@@ -724,11 +845,13 @@ function renderParentsTab() {
 }
 
 function renderTimetableTab() {
+  const isAdmin = canAdminister();
+
   if (state.classes.length === 0) {
     return `
       <div class="empty-state">
         <p>${t("noClasses")}</p>
-        <button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>
+        ${isAdmin ? `<button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>` : ""}
       </div>
     `;
   }
@@ -753,7 +876,6 @@ function renderTimetableTab() {
         <div class="custom-select" id="pageClassDropdown"></div>
       </div>
 
-      <!-- Кастомный визуальный календарь недели -->
       <div class="calendar-bar">
         <div class="calendar-top">
           <span class="calendar-month-label">${monthHeader}</span>
@@ -811,12 +933,12 @@ function renderTimetableTab() {
                         );
                         const teacher = slot ? state.staff.find((s) => s.id === slot.teacherId) : null;
                         return `
-                          <td class="slot-cell" onclick="openLessonModal(${dayIdx}, ${num})">
+                          <td class="slot-cell" onclick="${isAdmin ? `openLessonModal(${dayIdx}, ${num})` : ""}">
                             ${
                               slot
                                 ? `<div class="slot-subject">${escapeHtml(slot.subject)}</div>
                                    <div class="slot-meta">${teacher ? escapeHtml(getStaffDisplayName(teacher)) : ""} ${slot.room ? "· " + escapeHtml(slot.room) : ""}</div>`
-                                : `<span class="slot-empty">${t("clickToAssign")}</span>`
+                                : `<span class="slot-empty">${isAdmin ? t("clickToAssign") : t("emptySlotText")}</span>`
                             }
                           </td>
                         `;
@@ -834,11 +956,14 @@ function renderTimetableTab() {
 }
 
 function renderJournalTab() {
+  const isAdmin = canAdminister();
+  const allowGrading = canGrade();
+
   if (state.classes.length === 0) {
     return `
       <div class="empty-state">
         <p>${t("noClasses")}</p>
-        <button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>
+        ${isAdmin ? `<button type="button" class="btn btn-primary" onclick="openCreateModal('class')">${t("createBtn")}</button>` : ""}
       </div>
     `;
   }
@@ -881,7 +1006,7 @@ function renderJournalTab() {
                     <th>${t("fullName")}</th>
                     <th>${t("gradesCol")}</th>
                     <th>${t("attendanceCol")}</th>
-                    <th>${t("actionCol")}</th>
+                    ${allowGrading ? `<th>${t("actionCol")}</th>` : ""}
                   </tr>
                 </thead>
                 <tbody>
@@ -908,15 +1033,23 @@ function renderJournalTab() {
                             </div>
                           </td>
                           <td>
-                            <div class="att-group">
-                              <button type="button" class="att-btn ${attStatus === "present" ? "active-present" : ""}" onclick="setAttendance('${st.id}', 'present')">${t("present")}</button>
-                              <button type="button" class="att-btn ${attStatus === "late" ? "active-late" : ""}" onclick="setAttendance('${st.id}', 'late')">${t("late")}</button>
-                              <button type="button" class="att-btn ${attStatus === "absent" ? "active-absent" : ""}" onclick="setAttendance('${st.id}', 'absent')">${t("absent")}</button>
-                            </div>
+                            ${
+                              allowGrading
+                                ? `<div class="att-group">
+                                    <button type="button" class="att-btn ${attStatus === "present" ? "active-present" : ""}" onclick="setAttendance('${st.id}', 'present')">${t("present")}</button>
+                                    <button type="button" class="att-btn ${attStatus === "late" ? "active-late" : ""}" onclick="setAttendance('${st.id}', 'late')">${t("late")}</button>
+                                    <button type="button" class="att-btn ${attStatus === "absent" ? "active-absent" : ""}" onclick="setAttendance('${st.id}', 'absent')">${t("absent")}</button>
+                                  </div>`
+                                : `<span class="muted">${attStatus ? t(attStatus) : "—"}</span>`
+                            }
                           </td>
-                          <td>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openGradeModal('${st.id}')">${t("writeGrade")}</button>
-                          </td>
+                          ${
+                            allowGrading
+                              ? `<td>
+                                  <button type="button" class="btn btn-primary btn-sm" onclick="openGradeModal('${st.id}')">${t("writeGrade")}</button>
+                                </td>`
+                              : ""
+                          }
                         </tr>
                       `;
                     })
@@ -930,7 +1063,6 @@ function renderJournalTab() {
   `;
 }
 
-// ===== Действия и модальные окна =====
 window.shiftWeek = function (delta) {
   state.weekOffset = delta === 0 ? 0 : state.weekOffset + delta;
   saveState();
@@ -947,6 +1079,8 @@ window.selectDayAndOpen = function (dayIdx) {
   state.selectedDayIndex = dayIdx;
   saveState();
   renderApp();
+  if (!canAdminister()) return;
+
   const occupied = state.timetable
     .filter((x) => x.classId === state.selectedClassId && x.dayIndex === dayIdx)
     .map((x) => x.lessonNum);
@@ -982,6 +1116,10 @@ window.setTheme = function (themeId) {
 };
 
 window.openCreateModal = function (tab = "class", preselectClassId = null) {
+  if (!canAdminister()) {
+    showToast(t("noAccessToast"));
+    return;
+  }
   state.createModalTab = tab;
   if (preselectClassId) state.selectedClassId = preselectClassId;
   renderCreateModalBody();
@@ -1215,6 +1353,7 @@ function renderCreateModalBody() {
 }
 
 window.openEditNameModal = function () {
+  if (!canAdminister()) return;
   const user = getActiveUser();
   document.getElementById("editNameInput").value = getStaffDisplayName(user);
   document.getElementById("editPhoneInput").value = user.phone || "";
@@ -1226,6 +1365,7 @@ window.openEditNameModal = function () {
 let currentLessonTeacherId = "";
 
 window.openLessonModal = function (dayIdx, lessonNum) {
+  if (!canAdminister()) return;
   const days = t("days");
   const cls = state.classes.find((c) => c.id === state.selectedClassId);
   const existing = state.timetable.find(
@@ -1273,6 +1413,7 @@ window.openLessonModal = function (dayIdx, lessonNum) {
 };
 
 window.openGradeModal = function (studentId) {
+  if (!canGrade()) return;
   const student = state.students.find((s) => s.id === studentId);
   const user = getActiveUser();
   const userSubj = getStaffDisplaySubject(user);
@@ -1286,6 +1427,7 @@ window.openGradeModal = function (studentId) {
 };
 
 window.setAttendance = function (studentId, status) {
+  if (!canGrade()) return;
   const weekDates = getWeekDates(state.weekOffset);
   const activeDateIso = (weekDates[state.selectedDayIndex] || weekDates[0]).iso;
   state.attendance[`${studentId}_${activeDateIso}`] = status;
@@ -1309,7 +1451,6 @@ function closeModal(id) {
   document.getElementById(id).classList.add("hidden");
 }
 
-// ===== Обработчики =====
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     btn.onclick = () => {
@@ -1327,11 +1468,33 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   });
 
+  document.getElementById("fullscreenBtn").onclick = () => {
+    const tg = window.Telegram?.WebApp;
+    if (tg && typeof tg.requestFullscreen === "function") {
+      if (tg.isFullscreen && typeof tg.exitFullscreen === "function") {
+        tg.exitFullscreen();
+      } else {
+        tg.requestFullscreen();
+      }
+      setTimeout(applyTranslations, 250);
+      return;
+    }
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen?.().catch(() => {});
+    } else {
+      document.exitFullscreen?.().catch(() => {});
+    }
+  };
+
+  document.addEventListener("fullscreenchange", applyTranslations);
+  window.Telegram?.WebApp?.onEvent?.("fullscreenChanged", applyTranslations);
+
   document.getElementById("openThemeBtn").onclick = () => openThemeModal();
   document.getElementById("editNameBtn").onclick = () => openEditNameModal();
   document.getElementById("openCreateBtn").onclick = () => openCreateModal("class");
 
   document.getElementById("resetAllBtn").onclick = () => {
+    if (!canAdminister()) return;
     if (confirm(t("resetConfirm"))) {
       const keepLang = state.lang;
       const keepTheme = state.theme;
@@ -1356,6 +1519,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("editNameForm").onsubmit = (e) => {
     e.preventDefault();
+    if (!canAdminister()) return;
     const user = getActiveUser();
     user.name = document.getElementById("editNameInput").value.trim();
     user.phone = document.getElementById("editPhoneInput").value.trim();
@@ -1370,6 +1534,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("lessonForm").onsubmit = (e) => {
     e.preventDefault();
+    if (!canAdminister()) return;
     const dayIndex = Number(document.getElementById("lessonDayInput").value);
     const lessonNum = Number(document.getElementById("lessonNumInput").value);
     const subject = document.getElementById("lessonSubjectInput").value.trim();
@@ -1399,6 +1564,7 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   document.getElementById("deleteLessonBtn").onclick = () => {
+    if (!canAdminister()) return;
     const dayIndex = Number(document.getElementById("lessonDayInput").value);
     const lessonNum = Number(document.getElementById("lessonNumInput").value);
     state.timetable = state.timetable.filter(
@@ -1418,6 +1584,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("gradeForm").onsubmit = (e) => {
     e.preventDefault();
+    if (!canGrade()) return;
     const studentId = document.getElementById("gradeStudentId").value;
     const subject = document.getElementById("gradeSubjectInput").value.trim();
     const value = Number(document.getElementById("gradeValueInput").value);
