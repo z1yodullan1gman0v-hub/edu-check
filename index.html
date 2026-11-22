@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="sage">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>edu-check</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>edu-check</title>
+  <!-- 1. Подключаем SDK Telegram Mini Apps -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css" />
+
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <span class="brand-title">edu-check</span>
+        <span class="brand-sub" id="t-subtitle"></span>
+      </div>
+
+      <div class="topbar-controls">
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button type="button" class="lang-btn" data-lang="en">EN</button>
+          <button type="button" class="lang-btn active" data-lang="ru">RU</button>
+          <button type="button" class="lang-btn" data-lang="uz">UZ</button>
+        </div>
+
+        <!-- Кастомный выпадающий список профиля -->
+        <div class="custom-select" id="userDropdown"></div>
+
+        <button type="button" class="btn btn-secondary" id="openThemeBtn"></button>
+        <button type="button" class="btn btn-secondary" id="editNameBtn"></button>
+        <button type="button" class="btn btn-primary" id="openCreateBtn"></button>
+        <button type="button" class="btn btn-danger-outline" id="resetAllBtn"></button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="main-nav">
+    <div class="container nav-inner" id="mainNav">
+      <button type="button" class="nav-btn active" data-tab="home" id="nav-home"></button>
+      <button type="button" class="nav-btn" data-tab="classes" id="nav-classes"></button>
+      <button type="button" class="nav-btn" data-tab="staff" id="nav-staff"></button>
+      <button type="button" class="nav-btn" data-tab="parents" id="nav-parents"></button>
+      <button type="button" class="nav-btn" data-tab="timetable" id="nav-timetable"></button>
+      <button type="button" class="nav-btn" data-tab="journal" id="nav-journal"></button>
+    </div>
+  </nav>
+
+  <main class="container main-content" id="appRoot"></main>
+
+  <!-- Модальное окно: Создать с нуля (Класс / Руководитель / Ученик / Родитель) -->
+  <div class="modal-backdrop hidden" id="createModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2 id="modalCreateTitle"></h2>
+        <button type="button" class="btn-close" data-close="createModal" id="closeCreateBtn"></button>
+      </div>
+
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab active" data-ctab="class" id="ctab-class"></button>
+        <button type="button" class="modal-tab" data-ctab="staff" id="ctab-staff"></button>
+        <button type="button" class="modal-tab" data-ctab="student" id="ctab-student"></button>
+        <button type="button" class="modal-tab" data-ctab="parent" id="ctab-parent"></button>
+      </div>
+
+      <div class="modal-body" id="createModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Стиль сайта (комфортные темы для глаз) -->
+  <div class="modal-backdrop hidden" id="themeModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h2 id="themeModalTitle"></h2>
+        <button type="button" class="btn-close" data-close="themeModal" id="closeThemeBtn"></button>
+      </div>
+      <div class="modal-body" id="themeModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Изменить имя и телефон директора/сотрудника -->
+  <div class="modal-backdrop hidden" id="editNameModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h2 id="modalEditTitle"></h2>
+        <button type="button" class="btn-close" data-close="editNameModal" id="closeEditBtn"></button>
+      </div>
+      <form id="editNameForm" class="modal-body form-stack">
+        <label class="field">
+          <span id="lbl-edit-name"></span>
+          <input type="text" id="editNameInput" required />
+        </label>
+        <label class="field">
+          <span id="lbl-edit-phone"></span>
+          <input type="tel" id="editPhoneInput" />
+        </label>
+        <label class="field">
+          <span id="lbl-edit-subject"></span>
+          <input type="text" id="editSubjectInput" />
+        </label>
+        <label class="field">
+          <span id="lbl-edit-room"></span>
+          <input type="text" id="editRoomInput" />
+        </label>
+        <button type="submit" class="btn btn-primary" id="btn-save-name"></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Назначить урок -->
+  <div class="modal-backdrop hidden" id="lessonModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h2 id="lessonModalTitle"></h2>
+        <button type="button" class="btn-close" data-close="lessonModal" id="closeLessonBtn"></button>
+      </div>
+      <form id="lessonForm" class="modal-body form-stack">
+        <input type="hidden" id="lessonDayInput" />
+        <input type="hidden" id="lessonNumInput" />
+        <div class="info-banner" id="lessonSlotInfo"></div>
+
+        <label class="field">
+          <span id="lbl-lesson-subject"></span>
+          <input type="text" id="lessonSubjectInput" required />
+        </label>
+
+        <div class="field">
+          <span id="lbl-lesson-teacher"></span>
+          <div class="custom-select full-width" id="lessonTeacherDropdown"></div>
+        </div>
+
+        <label class="field">
+          <span id="lbl-lesson-room"></span>
+          <input type="text" id="lessonRoomInput" />
+        </label>
+
+        <div class="btn-row">
+          <button type="submit" class="btn btn-primary" id="btn-save-lesson"></button>
+          <button type="button" class="btn btn-danger-outline" id="deleteLessonBtn"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Модальное окно: Вписать оценку (0 - 10) -->
+  <div class="modal-backdrop hidden" id="gradeModal">
+    <div class="modal-card modal-sm">
+      <div class="modal-header">
+        <h2 id="gradeModalTitle"></h2>
+        <button type="button" class="btn-close" data-close="gradeModal" id="closeGradeBtn"></button>
+      </div>
+      <form id="gradeForm" class="modal-body form-stack">
+        <input type="hidden" id="gradeStudentId" />
+        <div class="info-banner" id="gradeStudentInfo"></div>
+
+        <label class="field">
+          <span id="lbl-grade-subject"></span>
+          <input type="text" id="gradeSubjectInput" required />
+        </label>
+
+        <label class="field">
+          <span id="lbl-grade-value"></span>
+          <div class="grade-input-wrap">
+            <input type="number" id="gradeValueInput" min="0" max="10" step="0.5" required />
+            <span class="grade-preview" id="gradePreview">—</span>
+          </div>
+        </label>
+
+        <label class="field">
+          <span id="lbl-grade-note"></span>
+          <input type="text" id="gradeNoteInput" />
+        </label>
+
+        <button type="submit" class="btn btn-primary" id="btn-save-grade"></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+  <script src="app.js"></script>
+  <script>
+    // 2. Сообщаем Telegram, что приложение готово, и разворачиваем его на весь экран
+    if (window.Telegram && window.Telegram.WebApp) {
+      const tg = window.Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+    }
+  </script>
+</body>
+</body>
+</html>
